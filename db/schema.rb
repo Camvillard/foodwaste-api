@@ -25,16 +25,6 @@ ActiveRecord::Schema.define(version: 2019_12_18_013824) do
     t.index ["leftover_id"], name: "index_cart_leftovers_on_leftover_id"
   end
 
-  create_table "cart_products", force: :cascade do |t|
-    t.bigint "leftover_id"
-    t.bigint "cart_id"
-    t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_cart_products_on_cart_id"
-    t.index ["leftover_id"], name: "index_cart_products_on_leftover_id"
-  end
-
   create_table "carts", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "pickup_time"
@@ -98,8 +88,6 @@ ActiveRecord::Schema.define(version: 2019_12_18_013824) do
 
   add_foreign_key "cart_leftovers", "carts"
   add_foreign_key "cart_leftovers", "leftovers"
-  add_foreign_key "cart_products", "carts"
-  add_foreign_key "cart_products", "leftovers"
   add_foreign_key "carts", "users"
   add_foreign_key "category_shops", "categories"
   add_foreign_key "category_shops", "shops"
