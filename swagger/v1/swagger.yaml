@@ -3,4 +3,27 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/api/v1/shops":
+    post:
+      summary: Creates a shop
+      tags:
+      - Shops
+      consumes:
+      - application/json
+      - application/xml
+      parameters:
+      - name: address
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+      responses:
+        '201':
+          description: shop created
+        '422':
+          description: invalid request
