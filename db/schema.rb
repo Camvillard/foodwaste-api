@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_18_011014) do
+ActiveRecord::Schema.define(version: 2019_12_18_013824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cart_leftovers", force: :cascade do |t|
+    t.bigint "cart_id"
+    t.bigint "leftover_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_cart_leftovers_on_cart_id"
+    t.index ["leftover_id"], name: "index_cart_leftovers_on_leftover_id"
+  end
 
   create_table "cart_products", force: :cascade do |t|
     t.bigint "leftover_id"
@@ -86,6 +96,8 @@ ActiveRecord::Schema.define(version: 2019_12_18_011014) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cart_leftovers", "carts"
+  add_foreign_key "cart_leftovers", "leftovers"
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "leftovers"
   add_foreign_key "carts", "users"
